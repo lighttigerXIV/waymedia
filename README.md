@@ -5,7 +5,8 @@
 </div>
 
 # About
-This is a simple module for waybar. It looks for all active players. When the player isn't stopped it will show the proper metadata. If nothing was found it will hide itself.
+These are two simple modules for waybar. It looks for all active players and when if sees something is playing it will show the proper metadata.
+If nothing was found it will hide itself.
 
 # Installation
 Clone the repository into a scripts directory in the waybar config directory.
@@ -16,6 +17,7 @@ git clone https://github.com/lighttigerXIV/waymedia.git ~/.config/waybar/scripts
 ```
 
 # Configuration
+## Artist-Title
 Add `"custom/waymedia"` to your waybar configuration.
 
 ```json
@@ -52,8 +54,49 @@ You can customize the play icon, pause icon, the divider and the pattern of how 
 },
 ```
 
+## Buttons
+Add `"custom/waymedia-buttons"` to your waybar configuration.
+
+```json
+"modules-left": ["custom/waymedia-buttons"],
+```
+
+### Required configuration
+```json
+"custom/waymedia-buttons": {
+    "format": "{icon}{}",
+    "exec": "~/.config/waybar/scripts/waymedia/waymedia-buttons",
+    "interval": 1,
+    "on-click": "playerctl play-pause",
+    "on-scroll-up": "playerctl next",
+    "on-scroll-down": "playerctl previous"
+},
+```
+
+### Full Configuration
+You can customize the buttons too.
+
+```json
+"custom/waymedia-buttons": {
+    "format": "{icon}{}",
+    "exec": "~/.config/waybar/scripts/waymedia/waymedia-buttons",
+    "interval": 1,
+    "on-click": "playerctl play-pause",
+    "on-scroll-up": "playerctl next",
+    "on-scroll-down": "playerctl previous",
+    "previous-icon": " 󰒮 ",
+    "skip-icon": " 󰒭 ",
+    "play-icon": "  ",
+    "pause-icon": "  "
+},
+```
+
 # Styling
-To style the component simply use the following selector
+To style the components use the following selectors
 ```css
+/* For the title/artist */
 #custom-waymedia{}
+
+/* For the buttons */
+#custom-waymedia-buttons{}
 ```
