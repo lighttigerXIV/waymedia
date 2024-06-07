@@ -19,7 +19,8 @@ module_configs = config_json["custom/waymedia"]
 pause_icon = module_configs["pause-icon"] if "pause-icon" in module_configs else "   "
 play_icon = module_configs["play-icon"] if "play-icon" in module_configs else "   "
 divider = module_configs["divider"] if "divider" in module_configs else " - "
-pattern = module_configs["pattern"] if "pattern" in module_configs else "{icon}{artist}{divider}{title}"
+format = module_configs["format"] if "format" in module_configs else "{icon}{artist}{divider}{title}"
+limit = module_configs["limit"] if "limit" in module_configs else 60
 
 def get_command_result(command)-> str:
     return subprocess.run(command, shell=True, capture_output=True, text=True).stdout.strip()
@@ -41,7 +42,13 @@ for player in players:
             divider = ""
 
 
-        text = pattern.replace("{icon}", icon).replace("{title}", title).replace("{divider}", divider).replace("{artist}", artist).strip().replace("&", "&amp;")
+        text = format.replace("{icon}", icon).replace("{title}", title).replace("{divider}", divider).replace("{artist}", artist).strip().replace("&", "&amp;").replace("{}", "")
+
+
+        if len(text) > limit:
+            text = f"{text[:limit - 3]}..."
+            
+        
         print(text, flush=True)
         exit(0)
 

@@ -64,9 +64,10 @@ Add `"custom/waymedia-buttons"` to your waybar configuration.
 ### Required configuration
 ```json
 "custom/waymedia-buttons": {
-    "format": "{icon}{}",
+    "format": "{icon} {artist} - {title}",
     "exec": "~/.config/waybar/scripts/waymedia/waymedia-buttons",
     "interval": 1,
+    "limit": 60,
     "on-click": "playerctl play-pause",
     "on-scroll-up": "playerctl next",
     "on-scroll-down": "playerctl previous"
