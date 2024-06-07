@@ -30,6 +30,7 @@ Add `"custom/waymedia"` to your waybar configuration.
     "format": "{}",
     "exec": "~/.config/waybar/scripts/waymedia/waymedia",
     "interval": 1,
+    "limit": 60,
     "on-click": "playerctl play-pause",
     "on-scroll-up": "playerctl next",
     "on-scroll-down": "playerctl previous"
@@ -44,6 +45,7 @@ You can customize the play icon, pause icon, the divider and the pattern of how 
     "format": "{icon}{}",
     "exec": "~/.config/waybar/scripts/waymedia/waymedia",
     "interval": 1,
+    "limit": 60,
     "on-click": "playerctl play-pause",
     "on-scroll-up": "playerctl next",
     "on-scroll-down": "playerctl previous",
@@ -67,7 +69,6 @@ Add `"custom/waymedia-buttons"` to your waybar configuration.
     "format": "{icon} {artist} - {title}",
     "exec": "~/.config/waybar/scripts/waymedia/waymedia-buttons",
     "interval": 1,
-    "limit": 60,
     "on-click": "playerctl play-pause",
     "on-scroll-up": "playerctl next",
     "on-scroll-down": "playerctl previous"
