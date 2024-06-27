@@ -27,7 +27,7 @@ Add `"custom/waymedia"` to your waybar configuration.
 ### Required configuration
 ```json
 "custom/waymedia": {
-    "format": "{}",
+    "format": "{icon}{artist}{divider}{title}",
     "exec": "~/.config/waybar/scripts/waymedia/waymedia",
     "interval": 1,
     "limit": 60,
@@ -42,7 +42,7 @@ You can customize the play icon, pause icon, the divider and the pattern of how 
 
 ```json
 "custom/waymedia": {
-    "format": "{icon}{}",
+    "format": "{icon}{artist}{divider}{title}",
     "exec": "~/.config/waybar/scripts/waymedia/waymedia",
     "interval": 1,
     "limit": 60,
@@ -51,8 +51,7 @@ You can customize the play icon, pause icon, the divider and the pattern of how 
     "on-scroll-down": "playerctl previous",
     "pause-icon": "   ",
     "play-icon": "   ",
-    "divider": " - ",
-    "pattern": "{icon}{artist}{divider}{title}"
+    "divider": " - "
 },
 ```
 
