@@ -12,8 +12,8 @@ If nothing was found it will hide itself.
 Clone the repository into a scripts directory in the waybar config directory.
 
 ```sh
-mkdir -p ~/.config/waybar/scripts/
-git clone https://github.com/lighttigerXIV/waymedia.git ~/.config/waybar/scripts/
+mkdir -p ~/.config/waybar/scripts/waymedia
+git clone https://github.com/lighttigerXIV/waymedia.git ~/.config/waybar/scripts/waymedia
 ```
 
 # Configuration
