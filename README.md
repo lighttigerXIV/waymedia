@@ -3,8 +3,17 @@ Waymedia is a custom waybar script that checks the current active player and sho
 I felt the need to create one because most media scripts only show the first item and not the active one.
 
 # 📷 Showcase
-<img src="./normal.webp">
-<img src="./tooltip.webp">
+Waymedia
+
+<img src="./waymedia.png">
+
+Buttons
+
+<img src="./buttons.png">
+
+Tooltip
+
+<img src="./tooltip.png">
 
 # ✨ Features
 - Shows active player
