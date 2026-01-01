@@ -6,57 +6,65 @@ from os.path import expanduser
 import subprocess
 import re
 
-config_path = f"{expanduser('~')}/.config/waybar"
 
-if os.path.exists(f"{config_path}/config.jsonc"):
-    config_path = f"{config_path}/config.jsonc"
-else:
-    config_path = f"{config_path}/config"
-
-def remove_comments(jsonc_str):
-    json_str = re.sub(r'//.*', '', jsonc_str)  # remove single-line comments
-    json_str = re.sub(r'/\*.*?\*/', '', json_str, flags=re.DOTALL)  # remove multi-line comments
-    return json_str
-
-with open(config_path, "r", encoding="utf-8") as file:
-    jsonc_content = file.read()
-
-clean_json_str = remove_comments(jsonc_content)
-config_json = json.loads(clean_json_str)
-
-module_configs = config_json.get("custom/waymedia", {})
-pause_icon = module_configs.get("pause-icon", "   ")
-play_icon = module_configs.get("play-icon", "   ")
-divider = module_configs.get("divider", " - ")
-format = module_configs.get("format", "{icon}{artist}{divider}{title}")
-limit = module_configs.get("limit", 60)
-
-def get_command_result(command) -> str:
+def get_output(command) -> str:
     return subprocess.run(command, shell=True, capture_output=True, text=True).stdout.strip()
 
-metadata = get_command_result("playerctl metadata") 
 
+jsonc_path = f"{expanduser('~')}/.config/waybar/config.jsonc"
+json_path = f"{expanduser('~')}/.config/waybar/config.json"
+
+if os.path.exists(jsonc_path):
+    config_path = jsonc_path
+
+elif os.path.exists(json_path):
+    config_path = json_path
+
+else:
+    exit(1)
+
+
+with open(config_path, "r", encoding="utf-8") as file:
+    config_content = file.read()
+
+cleaned_config_content = re.sub(r'//.*', '', config_content)
+cleaned_config_content = re.sub(r'/\*.*?\*/', '', config_content, flags=re.DOTALL)
+config = json.loads(cleaned_config_content).get("custom/waymedia")
+
+
+pause_icon = config.get("pause-icon", "   ")
+play_icon = config.get("play-icon", "   ")
+formatting = config.get("template", "{icon}{artist}{divider}{title}")
+divider = config.get("divider", " - ")
+limit = config.get("limit", 60)
+
+
+metadata = get_output("playerctl metadata") 
 players = subprocess.run("playerctl --list-all", shell=True, capture_output=True, text=True).stdout.split("\n")
 
 for player in players:
-    status = get_command_result(f"playerctl status -p {player}")
+     status = get_output(f"playerctl status -p {player}")
 
-    if status != "Stopped" and status != "":
+     if status != "Stopped" and status != "":
         icon = play_icon if status == "Paused" else pause_icon
-        artist = get_command_result("playerctl metadata --format '{{artist}}'")
-        title = get_command_result("playerctl metadata --format '{{title}}'")
-        
+        css_class = "paused" if status == "Paused" else "playing"
+
+        artist = get_output("playerctl metadata --format '{{artist}}'")
+        title = get_output("playerctl metadata --format '{{title}}'")
+
         if len(artist) == 0:
             divider = ""
 
-        text = format.replace("{icon}", icon).replace("{title}", title).replace("{divider}", divider).replace("{artist}", artist).strip().replace("&", "&amp;").replace("{}", "")
+        text = formatting.replace("{icon}", icon).replace("{title}", title).replace("{divider}", divider).replace("{artist}", artist).strip().replace("&", "&amp;").replace("{}", "")
+
+        tooltip = text.replace(icon, "")
 
         if len(text) > limit:
             text = f"{text[:limit - 3]}..."
-            
-        print(text, flush=True)
+
+        print(json.dumps({"text": text, "tooltip": tooltip, "class": css_class}),flush=True)
         exit(0)
 
-print("", flush=True)
-exit(0)
 
+print(json.dumps({"text": "", "tooltip": "", "class": "nothing"}),flush=True)
+exit(0)
