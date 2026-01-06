@@ -77,4 +77,5 @@ You can also change the icons
   "play-icon": "   ",
   "previous-icon": " 󰒮 ",
   "skip-icon": " 󰒭 ",
+  "empty-message": "  Nothing Playing"
 ```
