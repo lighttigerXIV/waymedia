@@ -37,6 +37,7 @@ play_icon = config.get("play-icon", "   ")
 formatting = config.get("template", "{icon}{artist}{divider}{title}")
 divider = config.get("divider", " - ")
 limit = config.get("limit", 60)
+empty_message = config.get("empty-message", "")
 
 
 metadata = get_output("playerctl metadata") 
@@ -65,6 +66,5 @@ for player in players:
         print(json.dumps({"text": text, "tooltip": tooltip, "class": css_class}),flush=True)
         exit(0)
 
-
-print(json.dumps({"text": "", "tooltip": "", "class": "nothing"}),flush=True)
+print(json.dumps({"text": empty_message, "tooltip": "", "class": "nothing"}),flush=True)
 exit(0)
