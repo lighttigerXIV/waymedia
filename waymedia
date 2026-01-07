@@ -53,6 +53,10 @@ for player in players:
         artist = get_output("playerctl metadata --format '{{artist}}'")
         title = get_output("playerctl metadata --format '{{title}}'")
 
+
+        if len(artist) == 0 and len(title) == 0:
+            break
+
         if len(artist) == 0:
             divider = ""
 
