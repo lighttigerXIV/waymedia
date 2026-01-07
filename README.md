@@ -21,6 +21,7 @@ Tooltip
 - Change playing/pause icons
 - Change next/previous icons (Only on buttons script)
 - Change the divider
+- Empty Message
 
 # 🖥️ Installation
 To install you can clone the repository into your scripts folder in the waybar config.
@@ -54,7 +55,8 @@ You can also change the icons and text length
 "pause-icon": "   ",
 "play-icon": "   ",
 "divider": " - ",
-"limit": 60
+"limit": 60,
+"empty-message": "  Nothing Playing"
 ```
 
 ## Waymedia Buttons
@@ -73,8 +75,8 @@ Add the required configuration.
 
 You can also change the icons
 ```json
-  "pause-icon": "   ",
-  "play-icon": "   ",
-  "previous-icon": " 󰒮 ",
-  "skip-icon": " 󰒭 ",
+"pause-icon": "   ",
+"play-icon": "   ",
+"previous-icon": " 󰒮 ",
+"skip-icon": " 󰒭 "
 ```
